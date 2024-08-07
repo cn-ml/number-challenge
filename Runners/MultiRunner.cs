@@ -15,8 +15,11 @@ public class MultiRunner : IRunner {
         _runners = runners;
     }
 
-    public long Runs => _runners.Sum(i => i.Runs);
-    public long Successes => _runners.Sum(i => i.Successes);
+    public long Runs => _runners.Sum(i => i.Runs) + InitialRuns;
+    public long Successes => _runners.Sum(i => i.Successes) + InitialSuccesses;
+
+    public long InitialRuns { get; init; } = 0;
+    public long InitialSuccesses { get; init; } = 0;
 
     public void Start() {
         _logger.LogInformation("Starting {amount} runners...", _runners.Count);

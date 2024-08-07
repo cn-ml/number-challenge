@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://gist.githubusercontent.com/cn-ml/6221e6c684e0a9795207be5523bae346/raw/41624afed2182cff421654657fed80ce279207be/pre-commit.schema.json
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+default_install_hook_types:
+  - pre-commit # usual behaviour
+  - commit-msg # required for commitlint
+default_stages:
+  - pre-commit # prevent hooks to run twice for commit-msg hook
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-added-large-files # prevents giant files from being committed.
+        exclude: \.designer\.cs$
+      - id: check-ast # simply checks whether the files parse as valid python.
+      - id: check-case-conflict # checks for files that would conflict in case-insensitive filesystems.
+      - id: check-json # checks json files for parseable syntax.
+      - id: check-symlinks # checks for symlinks which do not point to anything.
+      - id: check-toml # checks toml files for parseable syntax.
+      - id: check-xml # checks xml files for parseable syntax.
+      - id: check-yaml # checks yaml files for parseable syntax.
+      - id: end-of-file-fixer # ensures that a file is either empty, or ends with one newline.
+      - id: fix-byte-order-marker # removes utf-8 byte order marker.
+      - id: forbid-new-submodules # prevents addition of new git submodules.
+      - id: forbid-submodules # forbids any submodules in the repository
+      - id: trailing-whitespace # trims trailing whitespace.
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v9.16.0
+    hooks:
+      - id: commitlint # Commitlint hook
+        stages:
+          - commit-msg
+        additional_dependencies:
+          - "@commitlint/config-conventional"
